@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acarreos Arcaraz</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Orbitron', sans-serif;}
+
+body{
+  background:#000;
+  color:white;
+  scroll-behavior:smooth;
+  overflow-x:hidden;
+}
+
+/* FONDO */
+body::before{
+  content:'';
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,0,0,0.15), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,0,0,0.1), transparent 40%);
+  z-index:-1;
+}
+
+/* PROGRESO */
+.progress{
+  position:fixed;
+  top:0;
+  left:0;
+  height:4px;
+  background:linear-gradient(90deg,#ff0000,#ff4d4d);
+  width:0%;
+  z-index:9999;
+}
+
+/* NAV */
+nav{
+  display:flex;
+  justify-content:space-between;
+  padding:20px 60px;
+  position:fixed;
+  width:100%;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter: blur(12px);
+  z-index:999;
+}
+
+nav img{height:50px;}
+
+nav ul{
+  display:flex;
+  gap:30px;
+  list-style:none;
+}
+
+nav ul li{
+  cursor:pointer;
+  transition:0.3s;
+}
+
+nav ul li:hover{
+  color:#ff0000;
+  text-shadow:0 0 10px red;
+}
+
+/* HERO */
+.hero{
+  background:linear-gradient(180deg,#000,#050000);
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:100px 80px;
+}
+
+.hero-text{max-width:600px;}
+
+.hero h1{
+  font-size:80px;
+  background:linear-gradient(90deg,#ff0000,#ff4d4d);
+  -webkit-background-clip:text;
+  color:transparent;
+  animation:glow 2s infinite alternate;
+}
+
+.hero-sub{
+  margin-top:20px;
+  color:#ccc;
+  font-size:18px;
+}
+
+/* CHECKS */
+.checks{margin-top:25px;}
+
+.check{
+  display:flex;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.check-icon{
+  width:22px;
+  height:22px;
+  background:#ff0000;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 0 10px red;
+}
+
+.check span{
+  margin-left:10px;
+  color:#ddd;
+}
+
+/* BOTON */
+.btn{
+  margin-top:25px;
+  padding:15px 40px;
+  background:#555;
+  border:none;
+  border-radius:30px;
+  color:#ccc;
+  cursor:not-allowed;
+}
+
+/* IMAGEN */
+.hero-img img{
+  width:500px;
+  animation:float 4s infinite ease-in-out;
+}
+
+@keyframes glow{
+  from{filter:drop-shadow(0 0 5px red);}
+  to{filter:drop-shadow(0 0 25px red);}
+}
+
+@keyframes float{
+  50%{transform:translateY(-20px);}
+}
+
+/* SECCIONES */
+section{
+  padding:120px 60px;
+  opacity:0;
+  transform:translateY(50px);
+  transition:1s;
+  border-top:1px solid rgba(255,0,0,0.05);
+}
+
+section.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+h2{
+  text-align:center;
+  font-size:50px;
+  margin-bottom:50px;
+  background:linear-gradient(90deg,#ff0000,#ff6666);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+/* SERVICIOS */
+#servicios{
+  background:linear-gradient(180deg,#0a0a0a,#050000);
+}
+
+.cards{
+  display:flex;
+  gap:30px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.card{
+  width:280px;
+  background:#111;
+  padding:30px;
+  border-radius:20px;
+  border:1px solid #220000;
+  transition:0.4s;
+}
+
+.card:hover{
+  transform:translateY(-10px) scale(1.05);
+  box-shadow:0 0 25px red;
+}
+
+.card img{
+  width:60px;
+  margin-bottom:20px;
+}
+
+/* PRECIOS */
+#precios{
+  background:linear-gradient(180deg,#050000,#0a0000);
+}
+
+.price{
+  background:#111;
+  padding:30px;
+  border-radius:20px;
+  width:280px;
+  text-align:center;
+}
+
+.price h3{
+  color:#ff0000;
+  font-size:35px;
+}
+
+/* RESEÑAS */
+#reseñas{
+  background:linear-gradient(180deg,#0a0a0a,#000);
+}
+
+.reviews-container{overflow:hidden;}
+
+.slider{
+  display:flex;
+  gap:30px;
+  width:max-content;
+  animation:scroll 18s linear infinite;
+}
+
+.review{
+  min-width:300px;
+  background:#111;
+  padding:20px;
+  border-radius:15px;
+}
+
+.review h4{color:#ff0000;}
+.review p{color:#ccc;}
+
+@keyframes scroll{
+  100%{transform:translateX(-50%)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="progress" id="progress"></div>
+
+<nav>
+  <img src="assets/logo.png">
+  <ul>
+    <li onclick="go('hero')">Inicio</li>
+    <li onclick="go('servicios')">Servicios</li>
+    <li onclick="go('precios')">Precios</li>
+    <li onclick="window.location.href='noticiero.html'">Noticiero</li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-text">
+    <h1>ACARREOS<br>FREE FIRE</h1>
+
+    <div class="hero-sub">
+      Servicio profesional de subida de rango con jugadores altamente competitivos
+    </div>
+
+    <div class="checks">
+      <div class="check"><div class="check-icon">✔</div><span>Jugadores Heroico y Gran Maestro</span></div>
+      <div class="check"><div class="check-icon">✔</div><span>Subida rápida y segura</span></div>
+      <div class="check"><div class="check-icon">✔</div><span>Disponible 24/7</span></div>
+      <div class="check"><div class="check-icon">✔</div><span>Alta tasa de victorias</span></div>
+    </div>
+
+    <button class="btn">NO DISPONIBLE</button>
+  </div>
+
+  <div class="hero-img">
+    <img src="assets/hero.gif">
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <h2>SERVICIOS</h2>
+  <div class="cards">
+    <div class="card"><img src="assets/icon1.png"><h3>Acarreo Ranked</h3><p>Subida profesional.</p></div>
+    <div class="card"><img src="assets/icon2.png"><h3>Squad Pro</h3><p>Equipo competitivo.</p></div>
+    <div class="card"><img src="assets/icon3.png"><h3>Entrega Rápida</h3><p>Resultados inmediatos.</p></div>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section id="precios">
+  <h2>PRECIOS</h2>
+  <div class="cards">
+    <div class="price"><h3>$5</h3><p>Oro → Platino</p><button class="btn">NO DISPONIBLE</button></div>
+    <div class="price"><h3>$10</h3><p>Platino → Diamante</p><button class="btn">NO DISPONIBLE</button></div>
+    <div class="price"><h3>$20</h3><p>Heroico</p><button class="btn">NO DISPONIBLE</button></div>
+  </div>
+</section>
+
+<!-- RESEÑAS -->
+<section id="reseñas">
+  <h2>RESEÑAS</h2>
+  <div class="reviews-container">
+    <div class="slider">
+
+      <div class="review"><h4>Kodeesx ★★★★</h4><p>Mi primera vez en heroico muy recomendable</p></div>
+      <div class="review"><h4>Max ★★★★★</h4><p>Muy confiable</p></div>
+      <div class="review"><h4>Tulio ★★★★★</h4><p>Muy buenos jugadores</p></div>
+      <div class="review"><h4>Marco ★★★★★</h4><p>Recomendado 💯</p></div>
+
+      <div class="review"><h4>Uriel ★★★★★</h4><p>Subí a Heroico en horas 🔥</p></div>
+      <div class="review"><h4>Kevin ★★★★★</h4><p>No me arriezgue, lo disfrute.</p></div>
+      <div class="review"><h4>Pablo ★★★★★</h4><p>Ufff, los mejores en esto</p></div>
+      <div class="review"><h4>Andri ★★★★★</h4><p>Recomendado a todos mis familiares</p></div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+function go(id){
+  document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+
+window.onscroll = () => {
+  let scroll = document.documentElement.scrollTop;
+  let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  document.getElementById("progress").style.width = (scroll/height)*100 + "%";
+}
+
+const sections = document.querySelectorAll("section");
+window.addEventListener("scroll", () => {
+  sections.forEach(sec => {
+    if(sec.getBoundingClientRect().top < window.innerHeight - 100){
+      sec.classList.add("show");
+    }
+  });
+});
+</script>
+
+</body>
+</html>
